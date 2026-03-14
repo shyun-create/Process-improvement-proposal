@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>강의자료 & 리워드 프로세스 개선안 — 체인저스캠퍼스</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf8;
+  --bg-card: #ffffff;
+  --bg-dark: #1a1a1f;
+  --text: #1a1a1f;
+  --text-sub: #5a5a62;
+  --text-hint: #8a8a92;
+  --accent: #2563eb;
+  --accent-light: #eff4ff;
+  --red: #e53e3e;
+  --red-light: #fff5f5;
+  --red-border: #feb2b2;
+  --green: #0f7b5f;
+  --green-light: #f0fdf8;
+  --green-border: #86efac;
+  --amber: #b45309;
+  --amber-light: #fffbeb;
+  --amber-border: #fcd34d;
+  --border: #e8e8ec;
+  --border-dark: #d0d0d8;
+  --font: "Pretendard Variable", -apple-system, BlinkMacSystemFont, sans-serif;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(250,250,248,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); transition: box-shadow 0.3s; }
+.nav.scrolled { box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
+.nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.nav-logo { font-weight: 700; font-size: 15px; }
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 4px; }
+.nav-links a { font-size: 13px; font-weight: 500; color: var(--text-sub); text-decoration: none; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; }
+.nav-links a:hover { color: var(--text); background: rgba(0,0,0,0.04); }
+
+.hero { padding: 140px 24px 48px; text-align: center; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 50% 0%, rgba(37,99,235,0.06) 0%, transparent 60%); pointer-events: none; }
+.hero-badge { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--accent); background: var(--accent-light); padding: 5px 14px; border-radius: 20px; margin-bottom: 24px; text-transform: uppercase; }
+.hero h1 { font-size: clamp(28px, 5vw, 44px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.25; margin-bottom: 16px; }
+.hero p { font-size: 17px; color: var(--text-sub); max-width: 560px; margin: 0 auto 32px; line-height: 1.7; }
+.hero-meta { display: flex; justify-content: center; gap: 32px; font-size: 13px; color: var(--text-hint); }
+
+.reco-box { max-width: 600px; margin: 32px auto 0; background: var(--bg-card); border: 1px solid var(--accent); border-radius: var(--radius); padding: 24px 28px; text-align: left; box-shadow: 0 2px 12px rgba(37,99,235,0.08); position: relative; }
+.reco-box .reco-title { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 12px; }
+.reco-box .reco-item { font-size: 14px; line-height: 1.7; padding: 4px 0 4px 20px; position: relative; }
+.reco-box .reco-item::before { content: '→'; position: absolute; left: 0; font-weight: 700; color: var(--accent); }
+
+.container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+section { padding: 64px 0; }
+section + section { border-top: 1px solid var(--border); }
+.section-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.section-title { font-size: clamp(22px, 3.5vw, 32px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; line-height: 1.3; }
+.section-desc { font-size: 16px; color: var(--text-sub); margin-bottom: 40px; max-width: 640px; line-height: 1.7; }
+
+.diagnosis-cards { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+.diagnosis-card { background: var(--bg-dark); color: #fff; border-radius: var(--radius); padding: 32px; position: relative; overflow: hidden; }
+.diagnosis-card::after { content: ''; position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; background: radial-gradient(circle, rgba(37,99,235,0.12), transparent 70%); pointer-events: none; }
+.diagnosis-card .d-num { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 12px; }
+.diagnosis-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; line-height: 1.5; }
+.diagnosis-card p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; }
+
+.note-box { background: var(--accent-light); border: 1px solid #bfdbfe; border-radius: var(--radius-sm); padding: 16px 20px; margin-bottom: 40px; font-size: 14px; color: var(--accent); line-height: 1.7; }
+.note-box strong { font-weight: 700; }
+
+.problems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 40px; }
+.problem-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: all 0.25s; }
+.problem-card:hover { border-color: var(--border-dark); box-shadow: 0 4px 16px rgba(0,0,0,0.06); transform: translateY(-2px); }
+.problem-num { width: 26px; height: 26px; background: var(--red-light); color: var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; margin-bottom: 12px; }
+.problem-card.ops .problem-num { background: var(--amber-light); color: var(--amber); }
+.problem-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.problem-card .cause { font-size: 13px; color: var(--text-sub); margin-bottom: 10px; line-height: 1.6; }
+.problem-card .cs-quote { font-size: 13px; background: var(--red-light); color: var(--red); padding: 6px 10px; border-radius: 6px; border-left: 3px solid var(--red-border); font-weight: 500; }
+.problem-card.ops .cs-quote { background: var(--amber-light); color: var(--amber); border-left-color: var(--amber-border); }
+
+.flow-section { margin: 48px 0; }
+.flow-label { font-size: 13px; font-weight: 700; color: var(--text-hint); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.04em; }
+.flow-steps { display: flex; gap: 0; align-items: stretch; flex-wrap: wrap; justify-content: center; }
+.flow-step { flex: 0 0 auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px 18px; text-align: center; min-width: 120px; max-width: 160px; }
+.flow-step .step-title { font-size: 12px; font-weight: 700; margin-bottom: 3px; }
+.flow-step .step-desc { font-size: 11px; color: var(--text-hint); line-height: 1.4; }
+.flow-arrow { display: flex; align-items: center; justify-content: center; color: var(--text-hint); font-size: 16px; padding: 0 5px; flex-shrink: 0; }
+.flow-step.problem { border-color: var(--red-border); background: var(--red-light); }
+.flow-step.problem .step-title { color: var(--red); }
+.confusion-zone { border: 2px dashed var(--red-border); border-radius: var(--radius); padding: 12px; display: flex; align-items: stretch; gap: 0; flex-wrap: wrap; justify-content: center; position: relative; margin: 0 -4px; }
+.confusion-label { position: absolute; top: -10px; left: 20px; background: var(--red); color: white; font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 4px; }
+
+.solution-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 24px; }
+.solution-header { display: flex; align-items: center; gap: 16px; padding: 28px 32px; }
+.solution-badge { flex-shrink: 0; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; }
+.solution-badge.s1 { background: var(--green-light); color: var(--green); }
+.solution-badge.s2 { background: var(--accent-light); color: var(--accent); }
+.solution-header-text h3 { font-size: 17px; font-weight: 700; margin-bottom: 3px; }
+.solution-header-text p { font-size: 14px; color: var(--text-sub); }
+.solution-content { padding: 0 32px 32px; border-top: 1px solid var(--border); }
+.solution-content h4 { font-size: 14px; font-weight: 700; color: var(--text); margin: 24px 0 10px; }
+.solution-content ul { list-style: none; padding: 0; }
+.solution-content li { font-size: 14px; color: var(--text-sub); line-height: 1.7; padding: 4px 0 4px 20px; position: relative; }
+.solution-content li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 600; }
+.tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+.tag { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 6px; }
+.tag.solve { background: var(--green-light); color: var(--green); }
+.tag.partial { background: var(--amber-light); color: var(--amber); }
+
+.improved-flow { border-radius: var(--radius); padding: 28px; margin: 24px 0 0; }
+.improved-flow.green { background: var(--green-light); border: 1px solid var(--green-border); }
+.improved-flow.blue { background: var(--accent-light); border: 1px solid #bfdbfe; }
+.improved-flow h4 { font-size: 14px; font-weight: 700; margin-bottom: 16px; }
+.improved-flow.green h4 { color: var(--green); }
+.improved-flow.blue h4 { color: var(--accent); }
+.improved-track { display: flex; align-items: center; gap: 0; flex-wrap: wrap; justify-content: flex-start; margin-bottom: 12px; }
+.improved-track:last-child { margin-bottom: 0; }
+.track-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; width: 100%; margin-bottom: 6px; }
+.improved-flow.green .track-label { color: var(--green); }
+.improved-flow.blue .track-label { color: var(--accent); }
+.improved-step { background: white; border-radius: var(--radius-sm); padding: 8px 14px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.improved-flow.green .improved-step { border: 1px solid var(--green-border); color: var(--green); }
+.improved-flow.blue .improved-step { border: 1px solid #93c5fd; color: var(--accent); }
+.improved-arrow { font-size: 14px; padding: 0 6px; flex-shrink: 0; }
+.improved-flow.green .improved-arrow { color: var(--green); }
+.improved-flow.blue .improved-arrow { color: var(--accent); }
+.no-pw { display: inline-block; background: white; border: 1px dashed; border-radius: 6px; padding: 3px 8px; font-size: 11px; font-weight: 500; margin-left: 6px; }
+.improved-flow.green .no-pw { border-color: var(--green-border); color: var(--green); }
+.improved-flow.blue .no-pw { border-color: #93c5fd; color: var(--accent); }
+
+.form-structure { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; margin: 20px 0; }
+.form-step { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.form-step:last-child { border-bottom: none; }
+.form-step-num { width: 28px; height: 28px; flex-shrink: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+.form-step-num.success { background: var(--green-light); color: var(--green); }
+.form-step-num.fail { background: var(--red-light); color: var(--red); }
+.form-step-num.neutral { background: var(--bg-card); color: var(--text-hint); border: 1px solid var(--border); }
+.form-step-text h5 { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.form-step-text p { font-size: 13px; color: var(--text-sub); }
+
+.compare-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); font-size: 14px; margin: 32px 0; }
+.compare-table th, .compare-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+.compare-table th { background: var(--bg); font-weight: 700; font-size: 13px; color: var(--text-sub); }
+.compare-table td { color: var(--text-sub); }
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table td:first-child { font-weight: 600; color: var(--text); background: var(--bg); white-space: nowrap; }
+.compare-table .highlight { background: var(--green-light); color: var(--green); font-weight: 600; }
+
+.roadmap { display: flex; flex-direction: column; gap: 0; position: relative; }
+.roadmap::before { content: ''; position: absolute; left: 19px; top: 28px; bottom: 28px; width: 2px; background: var(--border); }
+.roadmap-item { display: flex; gap: 20px; padding: 16px 0; position: relative; }
+.roadmap-dot { width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; position: relative; z-index: 1; }
+.roadmap-dot.now { background: var(--accent); color: white; }
+.roadmap-dot.later { background: var(--bg); color: var(--text-hint); border: 2px solid var(--border); }
+.roadmap-text h4 { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+.roadmap-text p { font-size: 13px; color: var(--text-sub); line-height: 1.6; }
+.roadmap-text .timeline { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
+
+.decision-section { padding: 80px 24px; background: var(--bg-card); border-top: 1px solid var(--border); }
+.decision-inner { max-width: 640px; margin: 0 auto; }
+.decision-inner h2 { font-size: clamp(22px, 4vw, 30px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 32px; text-align: center; }
+.decision-items { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.decision-item { display: flex; align-items: flex-start; gap: 16px; padding: 18px 24px; border-bottom: 1px solid var(--border); }
+.decision-item:last-child { border-bottom: none; }
+.decision-num { width: 28px; height: 28px; flex-shrink: 0; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+.decision-item-text h4 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.decision-item-text p { font-size: 13px; color: var(--text-sub); }
+.decision-note { margin-top: 24px; padding: 14px 18px; background: var(--accent-light); border-radius: var(--radius-sm); font-size: 14px; color: var(--accent); text-align: center; font-weight: 500; }
+
+footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--text-hint); border-top: 1px solid var(--border); }
+
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .flow-steps, .confusion-zone { flex-direction: column; align-items: center; }
+  .flow-arrow { transform: rotate(90deg); }
+  .improved-track { flex-direction: column; align-items: flex-start; }
+  .improved-arrow { transform: rotate(90deg); padding: 3px 0; }
+  .hero-meta { flex-direction: column; gap: 8px; }
+  .problems-grid { grid-template-columns: 1fr; }
+  .solution-header { padding: 20px; }
+  .solution-content { padding: 0 20px 24px; }
+  .reco-box { margin-left: 24px; margin-right: 24px; padding: 20px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo"><span>체인저스</span>캠퍼스</div>
+    <div class="nav-links">
+      <a href="#problems">문제 진단</a>
+      <a href="#solution">개선안</a>
+      <a href="#compare">비교</a>
+      <a href="#roadmap">로드맵</a>
+      <a href="#decision">의사결정</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-badge">내부 제안서</div>
+  <h1>강의자료 & 리워드<br>프로세스 개선안</h1>
+  <p>수강생 CS 문의의 구조적 원인을 분석하고,<br>수강 편의를 향상시켜 중도 이탈을 줄이는<br>미션 허브 + 구글 폼 개편을 제안합니다.</p>
+  <div class="hero-meta">
+    <span>📋 사업운영팀 윤상훈</span>
+    <span>📅 2026. 3. 14</span>
+    <span>👥 송민규 대표 · 김예안 본부장 · 오유택 PM</span>
+  </div>
+  <div class="reco-box">
+    <div class="reco-title">📌 핵심 개선안 요약</div>
+    <div class="reco-item"><strong>미션 허브</strong> (HTML 한 장) — 흩어진 정보를 한 화면에 모아 강의자료와 리워드를 물리적으로 분리</div>
+    <div class="reco-item"><strong>구글 폼 섹션 분기</strong> — 성공 경로에서 리워드 다운로드 링크를 직접 노출하여 메일 발송 자체를 제거</div>
+    <div class="reco-item"><strong>결과:</strong> 비밀번호 2개→1개, 메일 의존 제거, 스팸함 문제 원천 차단</div>
+  </div>
+</header>
+
+<!-- 1. 문제 진단 -->
+<section id="problems">
+  <div class="container">
+    <div class="section-label">01 — 문제 진단</div>
+    <div class="section-title">왜 CS 문의가 반복되는가</div>
+    <div class="section-desc">이건 "설명 부족" 문제가 아니라 구조 문제입니다. 안내문을 더 길게 쓰거나 빨간 글씨를 추가하는 것으로는 해결하기 어렵습니다.</div>
+
+    <div class="diagnosis-cards fade-up">
+      <div class="diagnosis-card">
+        <div class="d-num">구조적 문제 1</div>
+        <h3>PPT가 설명 도구를 넘어서 프로세스 허브 역할까지 하고 있습니다</h3>
+        <p>강의자료 비밀번호, 리워드 암호, 신청서 링크, 다운로드 링크가 VOD 설명 → 영상 내부 → 압축파일 → PPT → 구글 폼 → 이메일로 분산되어 있어 수강생이 전체 흐름을 한 번에 이해하기 어렵습니다.</p>
+      </div>
+      <div class="diagnosis-card">
+        <div class="d-num">구조적 문제 2</div>
+        <h3>밤샘챌린지의 복잡한 흐름이 강의자료 비밀번호와 섞여 혼동을 배가시킵니다</h3>
+        <p>수강생 입장에서는 둘 다 "뭐 열 때 넣는 숫자"일 뿐인데, 하나는 영상에서, 다른 하나는 신청서 제출 후 메일에서 옵니다. PPT 안에 신청서 작성과 리워드 받기 버튼이 나란히 보이니 순서를 어기는 UI가 됩니다.</p>
+      </div>
+      <div class="diagnosis-card">
+        <div class="d-num">구조적 문제 3</div>
+        <h3>리워드 암호가 메일 기반이라 스팸함 이탈이 구조적으로 발생합니다</h3>
+        <p>Zapier를 통해 자동 발송되는 리워드 암호 메일이 스팸함으로 빠지는 경우가 빈번합니다. "스팸함을 확인해 보세요"라고 CS 응대를 해도, 자동 발송 메일은 스팸 필터에 걸리기 쉬운 구조입니다.</p>
+      </div>
+    </div>
+
+    <div class="note-box fade-up">
+      <strong>참고: 강의자료 비밀번호의 목적</strong> — 강의 수강 전 자료 열람을 차단하여 환불을 방어하기 위함입니다. 본 개선안은 이 "수강 전 자료 열람 차단" 기능을 유지하는 방향으로 설계했습니다.
+    </div>
+
+    <div class="flow-section fade-up">
+      <div class="flow-label">현재 수강생 동선 (총 9단계)</div>
+      <div class="flow-steps">
+        <div class="flow-step"><div class="step-title">VOD 시청</div><div class="step-desc">1시간+ 영상</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="step-title">암호 기억</div><div class="step-desc">영상 속 비번</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step problem"><div class="step-title">압축 해제</div><div class="step-desc">비밀번호 A</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="step-title">PPT 열람</div><div class="step-desc">강의자료 확인</div></div>
+        <div class="flow-arrow">→</div>
+      </div>
+      <div style="height:12px"></div>
+      <div class="confusion-zone">
+        <div class="confusion-label">혼동 구간</div>
+        <div class="flow-step problem"><div class="step-title">신청서 작성</div><div class="step-desc">PPT 내 링크</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step problem"><div class="step-title">메일 대기</div><div class="step-desc">스팸함행 위험</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step problem"><div class="step-title">암호 확인</div><div class="step-desc">비밀번호 B</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step problem"><div class="step-title">리워드 해제</div><div class="step-desc">또 압축 해제</div></div>
+      </div>
+    </div>
+
+    <div class="problems-grid fade-up">
+      <div class="problem-card"><div class="problem-num">1</div><h4>강의가 길어 자료부터 보려 함</h4><div class="cause">1시간+ 영상을 끝까지 봐야 비밀번호 확인 가능</div><div class="cs-quote">"비밀번호가 뭔가요?"</div></div>
+      <div class="problem-card"><div class="problem-num">2</div><h4>비밀번호를 못 찾음</h4><div class="cause">VOD 상세 설명에 적혀 있지만 인지되지 않음</div><div class="cs-quote">"비번 어디서 확인하나요?"</div></div>
+      <div class="problem-card"><div class="problem-num">3</div><h4>강의자료 비번 ≠ 리워드 암호 혼동</h4><div class="cause">둘 다 "압축파일 비밀번호"라서 구분 불가</div><div class="cs-quote">"이 비번 넣었는데 안 돼요"</div></div>
+      <div class="problem-card"><div class="problem-num">4</div><h4>리워드 암호 메일이 스팸함행</h4><div class="cause">Zapier 자동 발송 메일이 스팸 필터에 걸림</div><div class="cs-quote">"메일이 안 왔어요"</div></div>
+      <div class="problem-card ops"><div class="problem-num">5</div><h4>매 기수별 압축파일 생성 비효율</h4><div class="cause">기수/주차마다 ZIP 생성 → 드라이브 업로드 → 링크 첨부 반복</div><div class="cs-quote">사업운영팀 반복 작업 부담</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. 개선안 -->
+<section id="solution">
+  <div class="container">
+    <div class="section-label">02 — 개선안</div>
+    <div class="section-title">미션 허브 + 구글 폼 개편</div>
+    <div class="section-desc">흩어져 있는 정보를 한 화면에 모으고, 메일 발송을 없애는 것. 미션 허브는 GitHub Pages에 올리는 정적 HTML 한 장입니다. 별도 서버나 개발자가 필요 없고, 바이브코딩으로 구축 가능합니다.</div>
+
+    <!-- STEP 1 -->
+    <div class="solution-card fade-up">
+      <div class="solution-header">
+        <div class="solution-badge s1">S1</div>
+        <div class="solution-header-text">
+          <h3>STEP 1: 강의자료 다운로드 존 (미션 허브)</h3>
+          <p>해결하는 문제: #1, #2, #3, #5</p>
+        </div>
+      </div>
+      <div class="solution-content">
+        <h4>구조</h4>
+        <ul>
+          <li>"VOD 영상에 등장한 패스워드를 입력하세요" 입력창을 둡니다</li>
+          <li>올바른 암호 입력 시 → 구글 드라이브 다운로드 링크가 노출됩니다</li>
+          <li>압축파일은 유지 (PPT + 부가 자료 묶음). 단, 압축파일 자체의 비밀번호는 제거하고 미션 허브의 웹 암호가 "수강 전 자료 열람 차단" 역할을 대신합니다</li>
+        </ul>
+
+        <h4>오프라인/온라인 반 통합 운영</h4>
+        <ul>
+          <li><strong>오프라인 반:</strong> 토요일 현장에서 받은 암호로 미션 허브에서 바로 다운로드</li>
+          <li><strong>온라인 반:</strong> VOD 속 암호를 미션 허브에 입력하여 다운로드</li>
+          <li>동일한 허브 구조로 오프라인/온라인 통합 운영 가능</li>
+        </ul>
+
+        <h4>운영 효율 개선</h4>
+        <ul>
+          <li><strong>현재:</strong> 기수/주차마다 압축파일 생성 → 드라이브 업로드 → VOD 설명에 링크 첨부 (반복 작업)</li>
+          <li><strong>개선:</strong> 구글 드라이브에 파일을 한 번만 올려두고, 미션 허브의 암호/링크만 변경하면 됨</li>
+        </ul>
+
+        <div class="tag-row">
+          <span class="tag solve">#1 해결</span>
+          <span class="tag solve">#2 해결</span>
+          <span class="tag solve">#3 해결</span>
+          <span class="tag solve">#5 해결</span>
+        </div>
+
+        <div class="improved-flow green">
+          <h4>✅ STEP 1 적용 후 프로세스</h4>
+          <div class="track-label">강의자료 다운로드</div>
+          <div class="improved-track">
+            <div class="improved-step">미션 허브 접속</div>
+            <div class="improved-arrow">→</div>
+            <div class="improved-step">4자리 암호 입력</div>
+            <div class="improved-arrow">→</div>
+            <div class="improved-step">바로 다운로드</div>
+            <span class="no-pw">압축파일 비번 없음</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="solution-card fade-up">
+      <div class="solution-header">
+        <div class="solution-badge s2">S2</div>
+        <div class="solution-header-text">
+          <h3>STEP 2: 밤샘챌린지 리워드 개편 (구글 폼 + 미션 허브)</h3>
+          <p>해결하는 문제: #3, #4</p>
+        </div>
+      </div>
+      <div class="solution-content">
+        <h4>핵심 변경: 구글 폼 섹션 분기로 메일 발송 제거</h4>
+        <ul>
+          <li>구글 폼의 "응답에 따라 섹션으로 이동" 기능을 활용</li>
+          <li>성공 경로의 마지막 섹션에서 리워드 다운로드 링크를 직접 제공</li>
+          <li>리워드 파일은 압축 없이 직접 다운로드 링크로 제공 → 리워드 암호 자체가 불필요</li>
+          <li>구글 폼 설정 변경만으로 구현 가능 (개발 불필요)</li>
+        </ul>
+
+        <h4>변경 후 구글 폼 구조</h4>
+        <div class="form-structure">
+          <div class="form-step">
+            <div class="form-step-num neutral">1</div>
+            <div class="form-step-text">
+              <h5>섹션 1: 성공 여부 선택</h5>
+              <p>"성공했어요" → 섹션 2로 이동 · "실패했어요" → 섹션 4로 이동</p>
+            </div>
+          </div>
+          <div class="form-step">
+            <div class="form-step-num success">2</div>
+            <div class="form-step-text">
+              <h5>섹션 2 (성공 경로): 업무일지 링크 입력</h5>
+              <p>단답형으로 업무일지 링크 첨부 → 섹션 3으로 이동</p>
+            </div>
+          </div>
+          <div class="form-step">
+            <div class="form-step-num success">3</div>
+            <div class="form-step-text">
+              <h5>섹션 3 (성공 경로 마지막): 리워드 다운로드 링크 직접 표시</h5>
+              <p>🎉 "축하합니다! 리워드 다운로드: [링크]" — 폼 작성 과정에서 바로 확인</p>
+            </div>
+          </div>
+          <div class="form-step">
+            <div class="form-step-num fail">4</div>
+            <div class="form-step-text">
+              <h5>섹션 4 (실패 경로): 격려 메시지</h5>
+              <p>격려 메시지 + 폼 제출</p>
+            </div>
+          </div>
+        </div>
+
+        <h4>이렇게 하면</h4>
+        <ul>
+          <li><strong>Zapier 메일 발송이 불필요해짐 → 스팸함 문제 원천 차단</strong></li>
+          <li>리워드 암호가 사라짐 → 강의자료 비밀번호와의 혼동 원천 차단</li>
+          <li>성공/실패 분기 로직은 그대로 유지됨</li>
+        </ul>
+
+        <div class="tag-row">
+          <span class="tag solve">#3 해결</span>
+          <span class="tag solve">#4 해결</span>
+        </div>
+
+        <div class="improved-flow blue">
+          <h4>✅ STEP 2 적용 후 프로세스</h4>
+          <div class="track-label">밤샘챌린지 리워드</div>
+          <div class="improved-track">
+            <div class="improved-step">구글 폼 제출</div>
+            <div class="improved-arrow">→</div>
+            <div class="improved-step">성공 경로 도달</div>
+            <div class="improved-arrow">→</div>
+            <div class="improved-step">리워드 바로 다운</div>
+            <span class="no-pw">메일 대기 없음</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. 비교 -->
+<section id="compare">
+  <div class="container">
+    <div class="section-label">03 — 비교</div>
+    <div class="section-title">현재 vs 개선 후</div>
+    <div class="section-desc">주요 항목별 변경 사항을 비교합니다.</div>
+
+    <div class="fade-up" style="overflow-x:auto">
+      <table class="compare-table">
+        <thead><tr><th></th><th>현재</th><th>개선 후</th></tr></thead>
+        <tbody>
+          <tr><td>강의자료 접근</td><td>VOD 설명에서 링크 → 영상에서 비번 확인 → 압축 해제</td><td class="highlight">미션 허브에서 암호 입력 → 바로 다운로드</td></tr>
+          <tr><td>압축파일 비밀번호</td><td>압축파일에 비밀번호 설정</td><td class="highlight">압축파일 비밀번호 제거. 웹 암호가 대체</td></tr>
+          <tr><td>수강 전 자료 차단</td><td>유지 (압축파일 비밀번호)</td><td>유지 (미션 허브 웹 암호)</td></tr>
+
+          <tr><td>리워드 수령</td><td>구글 폼 → Zapier 메일 → 암호로 압축 해제</td><td class="highlight">구글 폼 성공 경로에서 직접 다운로드</td></tr>
+          <tr><td>비밀번호 개수</td><td>2개 (강의자료 + 리워드)</td><td class="highlight">1개 (강의자료만)</td></tr>
+          <tr><td>메일 의존</td><td>Zapier 메일 발송 (스팸함 위험)</td><td class="highlight">없음</td></tr>
+          <tr><td>비밀번호 혼동</td><td>둘 다 "압축파일 비밀번호"라서 혼동</td><td class="highlight">비밀번호 1개 + 리워드는 직접 링크</td></tr>
+          <tr><td>운영 작업</td><td>기수별 ZIP 생성/업로드/링크 첨부</td><td class="highlight">파일 한 번 업로드 + 허브 암호/링크만 변경</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 4. 로드맵 -->
+<section id="roadmap">
+  <div class="container">
+    <div class="section-label">04 — 실행 로드맵</div>
+    <div class="section-title">어떻게 진행할 것인가</div>
+    <div class="section-desc"></div>
+
+    <div class="roadmap fade-up">
+      <div class="roadmap-item">
+        <div class="roadmap-dot now">1</div>
+        <div class="roadmap-text">
+          <div class="timeline">즉시 실행 — 이번 주</div>
+          <h4>문구 수정 + 구글 폼 개편 + 미션 허브 구축</h4>
+          <p>구글 폼 섹션 분기 개편 (성공 경로 마지막에 리워드 다운로드 링크 직접 표시). Zapier 메일 발송 비활성화. 미션 허브 페이지 기획 및 바이브코딩 개발. 강의자료 압축파일에서 비밀번호 제거 + 구글 드라이브에 파일 업로드.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot later">2</div>
+        <div class="roadmap-text">
+          <div class="timeline">중기 실행</div>
+          <h4>파일럿 적용 + 모니터링</h4>
+          <p>신규 기수(27기)부터 변경된 프로세스 적용. CS 문의 건수 변화 모니터링 (변경 전후 비교). 수강생 피드백 수집 후 프로세스 미세 조정.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. 의사결정 -->
+<section class="decision-section" id="decision">
+  <div class="decision-inner">
+    <div class="section-label" style="text-align:center">05 — Decision Point</div>
+    <h2>의사결정 요청 사항</h2>
+    <div class="decision-items">
+      <div class="decision-item">
+        <div class="decision-num">1</div>
+        <div class="decision-item-text">
+          <h4>본 제안에 대한 보완 사항 검토 및 진행 여부 결정</h4>
+          <p>제안 내용 중 현장 상황과 맞지 않거나 놓친 부분이 있다면 의견 부탁드립니다. 피드백을 반영한 뒤 진행 여부를 결정해 주시면 감사하겠습니다.</p>
+        </div>
+      </div>
+      <div class="decision-item">
+        <div class="decision-num">2</div>
+        <div class="decision-item-text">
+          <h4>27기부터 파일럿 적용 여부 결정</h4>
+          <p>신규 27기부터 전면 적용할 것인지 결정해 주세요.</p>
+        </div>
+      </div>
+    </div>
+    <div class="decision-note">
+      설명을 더 쓰는 게 아니라 설명이 덜 필요한 구조를 만드는 것이 이 제안의 핵심입니다.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">체인저스캠퍼스 사업운영팀 · 2026. 3. 14 · 내부 공유용</div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 10));
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
