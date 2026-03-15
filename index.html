@@ -240,7 +240,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
 <header class="hero">
   <div class="hero-badge">내부 제안서</div>
   <h1>강의자료 & 리워드<br>프로세스 개선안</h1>
-  <p>수강생 CS 문의의 구조적 원인을 분석하고,<br>수강 편의를 향상시켜 중도 이탈을 줄이는<br>미션 허브 구축을 제안합니다.</p>
+  <p>수강 유도 장치는 현행 유지하면서,<br>비밀번호 혼동·메일 누락으로 발생하는 반복 CS를<br>구조적으로 제거하는 프로세스 변경안입니다.</p>
   <div class="hero-meta">
     <span>📋 사업운영팀 윤상훈</span>
     <span>📅 2026. 3. 15</span>
@@ -248,8 +248,9 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
   </div>
   <div class="reco-box">
     <div class="reco-title">📌 핵심 개선안 요약</div>
-    <div class="reco-item"><strong>미션 허브</strong> — 강의자료 다운로드부터 밤샘챌린지 제출·리워드 수령까지 한 페이지에서 완결</div>
-    <div class="reco-item"><strong>구글 폼 제거 + 자체 폼 구축</strong> — 바이브코딩으로 Google Apps Script 연동 자체 폼을 구축하여, 구글 폼의 구조적 한계(성공/실패별 최종 결과 페이지 분기 불가)를 원천 해결</div>
+    <div class="reco-item"><strong>수강 유도 장치(암호 게이트) 현행 유지</strong> — 강의를 수강해야 암호를 알 수 있는 구조는 변경 없음</div>
+    <div class="reco-item"><strong>미션 허브 + 자체 폼 구축</strong> — 강의자료 다운로드부터 밤샘챌린지 리워드까지 한 페이지에서 완결. 구글 폼의 구조적 한계(최종 결과 페이지 분기 불가)를 자체 폼으로 해결</div>
+    <div class="reco-item"><strong>사문화된 정책 실현</strong> — 업무일지 10개 제출 시 리워드 제공 정책을 기술적으로 작동하는 시스템으로 전환</div>
     <div class="reco-item"><strong>결과:</strong> 비밀번호 2개→1개, 메일 의존 제거, 스팸함 문제 원천 차단, 제출 데이터 자동 기록</div>
   </div>
 </header>
@@ -323,7 +324,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
   <div class="container">
     <div class="section-label">02 — 개선안</div>
     <div class="section-title">미션 허브 구축</div>
-    <div class="section-desc">흩어져 있는 정보를 한 화면에 모으고, 구글 폼의 구조적 한계를 바이브코딩으로 돌파하여, 강의자료 다운로드부터 밤샘챌린지 리워드까지 미션 허브 안에서 완결되는 구조를 만듭니다.</div>
+    <div class="section-desc">수강 유도 장치는 유지한 채, 암호 인증 이후의 자료 수령 동선만 간소화합니다. 구글 폼의 구조적 한계는 별도 개발 인력 없이 자체 폼을 구축하여 해결하였으며, 기존에 사문화되어 있던 운영 정책(업무일지 10개)을 실제 작동하는 시스템으로 전환합니다.</div>
 
     <!-- STEP 1 -->
     <div class="solution-card fade-up">
@@ -365,7 +366,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
         <h4>운영 효율 개선</h4>
         <ul>
           <li><strong>현재:</strong> 기수/주차마다 ZIP 생성 → 비밀번호 설정 → 드라이브 업로드 → VOD 설명에 링크 첨부 (반복 작업)</li>
-          <li><strong>개선:</strong> 기수 및 주차별로 고유 URL을 생성하여 배포합니다 (예: .../27-1, .../27-2). 이를 통해 이전 주차를 늦게 수강하는 인원의 접근성도 완벽하게 보장하며, ZIP 생성·비밀번호 설정 등 반복 단계가 줄어듭니다. 페이지 복제 및 URL 생성은 바이브코딩을 통해 1분 이내로 처리 가능합니다</li>
+          <li><strong>개선:</strong> 기수 및 주차별로 고유 URL을 생성하여 배포합니다 (예: .../27-1, .../27-2). 이를 통해 이전 주차를 늦게 수강하는 인원의 접근성도 완벽하게 보장하며, ZIP 생성·비밀번호 설정 등 반복 단계가 줄어듭니다. 페이지 복제 및 URL 생성은 주차별 복제·링크 교체 중심으로 운영 부담을 최소화할 수 있습니다</li>
         </ul>
 
         <div class="tag-row">
@@ -415,7 +416,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
           <li>수강생이 [제출] 버튼을 누르면, JavaScript가 Google Apps Script(GAS) 웹 앱으로 데이터를 전송</li>
           <li>GAS가 구글 스프레드시트에 자동 기록한 뒤, <strong>제출이 완료된 후에만</strong> 리워드 다운로드 링크가 화면에 표시됩니다</li>
           <li>제출 전에는 리워드 링크가 화면 어디에도 보이지 않으므로, 성공자에게만 리워드를 제공하는 분기 처리가 완벽하게 구현됩니다</li>
-          <li>별도 서버 없이 GitHub Pages(프론트엔드) + Google Apps Script(백엔드) + 구글 스프레드시트(데이터베이스)로 구성 — 바이브코딩으로 구축 완료</li>
+          <li>별도 서버 없이 운영 가능하며, 제출 데이터는 구글 스프레드시트에서 바로 확인 가능</li>
         </ul>
 
         <h4>리워드 수령 분기 구조</h4>
@@ -584,7 +585,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
           <tr><td>비밀번호 개수</td><td>2개 (강의자료 + 리워드)</td><td class="highlight">1개 (강의자료만)</td></tr>
           <tr><td>메일 의존</td><td>Zapier 메일 발송 (스팸함 위험)</td><td class="highlight">없음</td></tr>
           <tr><td>제출 데이터</td><td>구글 폼 응답 시트</td><td class="highlight">구글 스프레드시트 자동 기록 (GAS)</td></tr>
-          <tr><td>운영 작업</td><td>기수별 ZIP 생성 · 비밀번호 설정 · 업로드 · 링크 첨부</td><td class="highlight">주차별 고유 URL 생성(바이브코딩 1분 이내) + 파일 업로드. ZIP 생성·비밀번호 설정 단계 제거</td></tr>
+          <tr><td>운영 작업</td><td>기수별 ZIP 생성 · 비밀번호 설정 · 업로드 · 링크 첨부</td><td class="highlight">주차별 복제·링크 교체 중심으로 운영 가능. ZIP 생성·비밀번호 설정 단계 제거</td></tr>
         </tbody>
       </table>
     </div>
@@ -608,7 +609,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
         <div class="roadmap-text">
           <div class="timeline">승인 후 즉시 실행</div>
           <h4>미션 허브 구축 + GAS 연동 + 기존 PPT 정리</h4>
-          <p>미션 허브 페이지 바이브코딩 개발 완료 (프로토타입 구축·테스트 완료). Google Apps Script 배포 및 스프레드시트 연동 완료. Zapier 메일 발송 비활성화. 강의자료 압축파일에서 비밀번호 제거 + 구글 드라이브에 주차별 개별 파일 업로드. 기존 강의자료 PPT 내의 '밤샘챌린지 리워드 신청서 작성' / '리워드 받기' 버튼을 제거하고, '미션 허브에서 신청하세요'라는 안내 문구로 대체 검토.</p>
+          <p>미션 허브 페이지: 별도 개발 인력 없이 자체 구현 완료 (프로토타입 구축·테스트 완료). Google Apps Script 배포 및 스프레드시트 연동 완료. Zapier 메일 발송 비활성화. 강의자료 압축파일에서 비밀번호 제거 + 구글 드라이브에 주차별 개별 파일 업로드. 기존 강의자료 PPT 내의 '밤샘챌린지 리워드 신청서 작성' / '리워드 받기' 버튼을 제거하고, '미션 허브에서 신청하세요'라는 안내 문구로 대체 검토.</p>
         </div>
       </div>
       <div class="roadmap-item">
