@@ -201,6 +201,34 @@ section + section { border-top: 1px solid var(--border); }
 
 footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--text-hint); border-top: 1px solid var(--border); }
 
+/* Impact & KPI section */
+.impact-cards { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+.impact-card { display: flex; gap: 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; }
+.impact-card.concern { border-left: 4px solid var(--amber); }
+.impact-card.positive { border-left: 4px solid var(--green); }
+.impact-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.impact-body h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.impact-verdict { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.impact-card.concern .impact-verdict { color: var(--amber); }
+.impact-card.positive .impact-verdict { color: var(--green); }
+.impact-body p { font-size: 14px; color: var(--text-sub); line-height: 1.7; }
+.kpi-box { background: var(--accent-light); border: 1px solid #bfdbfe; border-radius: var(--radius); padding: 28px 32px; }
+.kpi-box h4 { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 20px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.kpi-item { display: flex; gap: 12px; align-items: flex-start; background: white; border-radius: var(--radius-sm); padding: 14px 16px; border: 1px solid #dbeafe; }
+.kpi-num { width: 24px; height: 24px; flex-shrink: 0; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+.kpi-text { display: flex; flex-direction: column; gap: 2px; }
+.kpi-text strong { font-size: 13px; font-weight: 700; color: var(--text); }
+.kpi-text span { font-size: 12px; color: var(--text-sub); }
+
+/* Benefits section */
+.benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.benefit-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; transition: all 0.25s; }
+.benefit-card:hover { border-color: var(--border-dark); box-shadow: 0 4px 16px rgba(0,0,0,0.06); transform: translateY(-2px); }
+.benefit-icon { font-size: 28px; margin-bottom: 14px; }
+.benefit-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+.benefit-card p { font-size: 14px; color: var(--text-sub); line-height: 1.7; }
+
 @media (max-width: 640px) {
   .nav-links { display: none; }
   .flow-steps, .confusion-zone { flex-direction: column; align-items: center; }
@@ -214,6 +242,10 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
   .reco-box { margin-left: 24px; margin-right: 24px; padding: 20px; }
   .pf-node { min-width: 80px; max-width: 110px; padding: 8px 8px; }
   .pf-wrap { padding: 24px 16px; }
+  .impact-card { flex-direction: column; gap: 10px; padding: 20px; }
+  .kpi-grid { grid-template-columns: 1fr; }
+  .kpi-box { padding: 20px; }
+  .benefits-grid { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: no-preference) {
   .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
@@ -230,6 +262,8 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
       <a href="#problems">문제 진단</a>
       <a href="#solution">개선안</a>
       <a href="#flow">플로우</a>
+      <a href="#impact">성과 검토</a>
+      <a href="#benefits">기대효과</a>
       <a href="#compare">비교</a>
       <a href="#roadmap">로드맵</a>
       <a href="#decision">의사결정</a>
@@ -240,7 +274,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
 <header class="hero">
   <div class="hero-badge">내부 제안서</div>
   <h1>강의자료 & 리워드<br>프로세스 개선안</h1>
-  <p>수강 유도 장치는 현행 유지하면서,<br>비밀번호 혼동·메일 누락으로 발생하는 반복 CS를<br>구조적으로 제거하는 프로세스 변경안입니다.</p>
+  <p>수강 유도 장치는 수강 확인 퀴즈를 추가하여 기존보다 강화하고,<br>강의 시청 이후의 불필요한 운영 마찰만 제거하여<br>수강 집중을 저해하는 운영상 불편을 줄이고, 성과와 영향은 파일럿으로 검증하고자 합니다.</p>
   <div class="hero-meta">
     <span>📋 사업운영팀 윤상훈</span>
     <span>📅 2026. 3. 15</span>
@@ -248,10 +282,10 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
   </div>
   <div class="reco-box">
     <div class="reco-title">📌 핵심 개선안 요약</div>
-    <div class="reco-item"><strong>수강 유도 장치(암호 게이트) 현행 유지</strong> — 강의를 수강해야 암호를 알 수 있는 구조는 변경 없음</div>
-    <div class="reco-item"><strong>미션 허브 + 자체 폼 구축</strong> — 강의자료 다운로드부터 밤샘챌린지 리워드까지 한 페이지에서 완결. 구글 폼의 구조적 한계(최종 결과 페이지 분기 불가)를 자체 폼으로 해결</div>
-    <div class="reco-item"><strong>사문화된 정책 실현</strong> — 업무일지 10개 제출 시 리워드 제공 정책을 기술적으로 작동하는 시스템으로 전환</div>
-    <div class="reco-item"><strong>결과:</strong> 비밀번호 2개→1개, 메일 의존 제거, 스팸함 문제 원천 차단, 제출 데이터 자동 기록</div>
+    <div class="reco-item"><strong>수강 유도 장치를 기존보다 강화</strong> — 강의 내용 기반 수강 확인 퀴즈(단답형 3문제) + 암호 게이트 이중 구조. 직접 수강하지 않은 경우 통과 난이도가 높아지도록 설계</div>
+    <div class="reco-item"><strong>암호 인증 이후의 자료 수령 동선만 간소화</strong> — 미션 허브 단일 페이지에서 강의자료 다운로드부터 리워드 수령까지 완결</div>
+    <div class="reco-item"><strong>사문화된 운영 정책을 시스템으로 실현</strong> — 업무일지 10개 제출 시 리워드 제공 정책을 실제 작동하는 구조로 전환, 수강생별 참여 현황 모니터링 기반 확보</div>
+    <div class="reco-item"><strong>27기 파일럿 적용 후 KPI 기반 검증</strong> — CS 건수, 챌린지 제출률, 업무일지 10개 경로 활용 건수를 지표로 효과 측정</div>
   </div>
 </header>
 
@@ -259,8 +293,8 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
 <section id="problems">
   <div class="container">
     <div class="section-label">01 — 문제 진단</div>
-    <div class="section-title">왜 CS 문의가 반복되는가</div>
-    <div class="section-desc">이건 "설명 부족" 문제가 아니라 구조 문제입니다. 안내문을 더 길게 쓰거나 빨간 글씨를 추가하는 것으로는 해결하기 어렵습니다.</div>
+    <div class="section-title">수강 성과를 저해하는 구조적 요인</div>
+    <div class="section-desc">비밀번호 혼동·메일 누락 등으로 발생하는 반복 CS는 단순한 설명 부족이 아닌 구조적 문제입니다. 수강생의 학습 흐름을 끊고, 운영팀의 에너지를 소모시키며, 양쪽 모두 '강의 내용'이 아닌 '시스템 문제'에 시간을 쓰게 만듭니다.</div>
 
     <div class="diagnosis-cards fade-up">
       <div class="diagnosis-card">
@@ -281,7 +315,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
     </div>
 
     <div class="note-box fade-up">
-      <strong>참고: 강의자료 비밀번호의 목적</strong> — 수강 전 자료 차단 (환불 방어 목적)입니다. 본 개선안은 이 "수강 전 자료 열람 차단" 기능을 유지하는 방향으로 설계했습니다.
+      <strong>참고: 강의자료 비밀번호의 목적</strong> — 수강 전 자료 차단 (환불 방어 목적)입니다. 본 개선안은 이 "수강 전 자료 열람 차단" 기능을 강의 내용 기반 퀴즈를 추가하여 기존보다 강화하는 방향으로 설계했으며, 파일럿으로 그 효과를 검증하고자 합니다.
     </div>
 
     <div class="flow-section fade-up">
@@ -310,7 +344,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
     </div>
 
     <div class="problems-grid fade-up">
-      <div class="problem-card"><div class="problem-num">1</div><h4>강의가 길어 자료부터 보려 함</h4><div class="cause">1시간+ 영상을 끝까지 봐야 비밀번호 확인 가능</div><div class="cs-quote">"비밀번호가 뭔가요?"</div></div>
+      <div class="problem-card"><div class="problem-num">1</div><h4>강의 선시청 유도 장치와 자료 수령 절차가 분리되지 않아 혼선 발생</h4><div class="cause">암호 확인(강의 시청) → 자료 다운로드(압축 해제)가 별도 경로로 흩어져 있어 수강생이 전체 흐름을 파악하기 어려움</div><div class="cs-quote">"비밀번호가 뭔가요?"</div></div>
       <div class="problem-card"><div class="problem-num">2</div><h4>비밀번호를 못 찾음</h4><div class="cause">VOD 상세 설명에 적혀 있지만 인지되지 않음</div><div class="cs-quote">"비번 어디서 확인하나요?"</div></div>
       <div class="problem-card"><div class="problem-num">3</div><h4>강의자료 비번 ≠ 리워드 암호 혼동</h4><div class="cause">둘 다 "압축파일 비밀번호"라서 구분 불가</div><div class="cs-quote">"이 비번 넣었는데 안 돼요"</div></div>
       <div class="problem-card"><div class="problem-num">4</div><h4>리워드 암호 메일이 스팸함행</h4><div class="cause">Zapier 자동 발송 메일이 스팸 필터에 걸림</div><div class="cs-quote">"메일이 안 왔어요"</div></div>
@@ -324,7 +358,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
   <div class="container">
     <div class="section-label">02 — 개선안</div>
     <div class="section-title">미션 허브 구축</div>
-    <div class="section-desc">수강 유도 장치는 유지한 채, 암호 인증 이후의 자료 수령 동선만 간소화합니다. 구글 폼의 구조적 한계는 별도 개발 인력 없이 자체 폼을 구축하여 해결하였으며, 기존에 사문화되어 있던 운영 정책(업무일지 10개)을 실제 작동하는 시스템으로 전환합니다.</div>
+    <div class="section-desc">수강 확인 퀴즈를 추가하여 수강 유도를 기존보다 강화하는 방향으로 설계하면서, 암호 인증 이후의 자료 수령 동선은 간소화합니다. 구글 폼의 구조적 한계는 자체 폼을 구축하여 해결하였으며, 기존에 사문화되어 있던 운영 정책(업무일지 10개)을 실제 작동하는 시스템으로 전환합니다. 별도 개발 인력·서버 비용 없이 운영 가능합니다.</div>
 
     <!-- STEP 1 -->
     <div class="solution-card fade-up">
@@ -338,9 +372,11 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
       <div class="solution-content">
         <h4>구조</h4>
         <ul>
-          <li>"현장강의 또는 VOD 영상에 등장한 패스워드를 입력하세요" 입력창을 둡니다</li>
+          <li><strong>수강 확인 퀴즈:</strong> 강의 내용을 기반으로 한 단답형 3문제를 먼저 풀어야 암호 입력창이 열립니다. 강의를 직접 수강하지 않으면 답을 알기 어려운 문제로 구성하여, 기존 암호만으로는 부족했던 수강 강제력을 보완합니다</li>
+          <li>퀴즈 통과 후 "현장강의 또는 VOD 영상에 등장한 패스워드를 입력하세요" 입력창이 노출됩니다</li>
           <li>올바른 암호 입력 시 → 구글 드라이브 다운로드 링크가 노출됩니다</li>
-          <li>압축파일은 유지 (PPT + 부가 자료 묶음). 단, 압축파일 자체의 비밀번호는 제거하고 미션 허브의 안내 게이트가 초기 파일 노출을 줄이는 최소 장벽 역할을 합니다</li>
+          <li>압축파일은 유지 (PPT + 부가 자료 묶음). 단, 압축파일 자체의 비밀번호는 제거하고 미션 허브의 퀴즈 + 암호 이중 게이트가 수강 전 파일 노출을 줄이는 장벽 역할을 합니다</li>
+          <li><strong>퀴즈 운영 부담:</strong> 주차별 문항을 한 번 세팅하면 기수가 바뀌어도 동일 강의 기준으로 재사용 가능. 매주 업데이트 불필요</li>
         </ul>
 
         <h4>진입 경로: 카카오톡 수강생 전용 단톡방</h4>
@@ -360,7 +396,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
         <h4>파일 공유 방식</h4>
         <ul>
           <li>마스터 폴더가 아닌 주차별 개별 파일 링크로 공유하여, 유출 시에도 해당 주차 자료만 노출되도록 합니다</li>
-          <li>구글 드라이브 공유 설정은 "링크가 있는 모든 사용자 — 뷰어"를 유지하되, 미션 허브의 안내 게이트가 링크 도달 전 1차 장벽 역할을 합니다</li>
+          <li>구글 드라이브 공유 설정은 "링크가 있는 모든 사용자 — 뷰어"를 유지하되, 미션 허브의 수강 확인 퀴즈 + 암호 이중 게이트가 링크 도달 전 장벽 역할을 합니다</li>
         </ul>
 
         <h4>운영 효율 개선</h4>
@@ -380,9 +416,9 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
           <h4>✅ STEP 1 적용 후 프로세스</h4>
           <div class="track-label">강의자료 다운로드</div>
           <div class="improved-track">
-            <div class="improved-step">단톡방 공지 확인</div>
+            <div class="improved-step">공지 확인</div>
             <div class="improved-arrow">→</div>
-            <div class="improved-step">미션 허브 접속</div>
+            <div class="improved-step">수강 확인 퀴즈 (3문제)</div>
             <div class="improved-arrow">→</div>
             <div class="improved-step">암호 입력</div>
             <div class="improved-arrow">→</div>
@@ -398,7 +434,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
       <div class="solution-header">
         <div class="solution-badge s2">S2</div>
         <div class="solution-header-text">
-          <h3>STEP 2: 밤샘챌린지 리워드 (미션 허브 · 자체 폼 + GAS 연동)</h3>
+          <h3>STEP 2: 밤샘챌린지 리워드 (미션 허브 · 자체 폼)</h3>
           <p>해결하는 문제: #3, #4</p>
         </div>
       </div>
@@ -410,13 +446,13 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
           <li>이 한계를 근본적으로 해결하기 위해, 구글 폼 대신 미션 허브 내에 자체 신청 폼을 구축했습니다</li>
         </ul>
 
-        <h4>핵심 변경: 미션 허브 자체 폼 + Google Apps Script 연동</h4>
+        <h4>핵심 변경: 미션 허브 자체 폼 + 스프레드시트 자동 기록</h4>
         <ul>
           <li>미션 허브의 밤샘챌린지 탭에 이름, 연락처, 성공/실패 선택, 업무일지 링크 입력 폼을 직접 구축</li>
-          <li>수강생이 [제출] 버튼을 누르면, JavaScript가 Google Apps Script(GAS) 웹 앱으로 데이터를 전송</li>
-          <li>GAS가 구글 스프레드시트에 자동 기록한 뒤, <strong>제출이 완료된 후에만</strong> 리워드 다운로드 링크가 화면에 표시됩니다</li>
+          <li>수강생이 [제출] 버튼을 클릭하면 제출 데이터가 구글 스프레드시트에 자동 기록됩니다</li>
+          <li><strong>스프레드시트 기록이 완료된 뒤에만</strong> 리워드 다운로드 링크가 화면에 표시됩니다</li>
           <li>제출 전에는 리워드 링크가 화면 어디에도 보이지 않으므로, 성공자에게만 리워드를 제공하는 분기 처리가 완벽하게 구현됩니다</li>
-          <li>별도 서버 없이 운영 가능하며, 제출 데이터는 구글 스프레드시트에서 바로 확인 가능</li>
+          <li>별도 서버 비용 없이 운영 가능하며, 제출 데이터는 구글 스프레드시트에서 바로 확인 가능</li>
         </ul>
 
         <h4>리워드 수령 분기 구조</h4>
@@ -516,7 +552,9 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
         <div class="pf-common">
           <div class="pf-node hub"><div class="ico">🌐</div><div class="nm">미션 허브 접속</div><div class="sub">강의자료 탭 · 주차별 URL</div></div>
           <span class="pf-arr">→</span>
-          <div class="pf-node hub"><div class="ico">🔐</div><div class="nm">암호 입력</div><div class="sub">안내 게이트</div></div>
+          <div class="pf-node hub"><div class="ico">📝</div><div class="nm">수강 확인 퀴즈</div><div class="sub">강의 내용 단답형 3문제</div></div>
+          <span class="pf-arr">→</span>
+          <div class="pf-node hub"><div class="ico">🔐</div><div class="nm">암호 입력</div><div class="sub">이중 게이트</div></div>
           <span class="pf-arr">→</span>
           <div class="pf-node done"><div class="ico">📥</div><div class="nm">강의자료 다운로드</div><div class="sub">구글 드라이브 직접 링크</div></div>
           <span class="pf-arr">→</span>
@@ -530,7 +568,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
           <div class="pf-pnum am">2</div>
           <div class="pf-ptitle">밤샘챌린지 → 리워드 수령 <small>매주 반복 · 미션 허브 내에서 완결</small></div>
         </div>
-        <div class="pf-tech">⚡ 구글 폼 없음 — 미션 허브 자체 폼 + Google Apps Script로 스프레드시트 자동 기록</div>
+        <div class="pf-tech">⚡ 구글 폼 없음 — 미션 허브 자체 폼으로 제출 즉시 스프레드시트 자동 기록</div>
         <div class="pf-row">
           <div class="pf-node"><div class="ico">🌙</div><div class="nm">밤샘챌린지 미션 수행</div><div class="sub">강의 및 단톡방 공지에서 안내</div></div>
           <span class="pf-arr">→</span>
@@ -565,10 +603,115 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
   </div>
 </section>
 
-<!-- 04. 비교 -->
+<!-- 04. 수강 성과 영향 검토 -->
+<section id="impact">
+  <div class="container">
+    <div class="section-label">04 — 수강 성과 영향 검토</div>
+    <div class="section-title">수강 유도: 기존 장치를 보완하는 방향으로 강화 시도</div>
+    <div class="section-desc">본 제안이 수강 유도와 학습 성과에 미치는 영향을 항목별로 검토하였습니다.</div>
+
+    <div class="impact-cards fade-up">
+      <div class="impact-card positive">
+        <div class="impact-icon">✅</div>
+        <div class="impact-body">
+          <h4>우려 해소: '수강 없이 자료부터 열람하는 행위'</h4>
+          <p class="impact-verdict">→ 수강 확인 퀴즈 추가로 기존보다 수강 유도를 강화하는 방향으로 설계</p>
+          <p>기존 암호는 타인에게 공유가 용이했으나, 강의 내용 기반 퀴즈 3문제 + 암호 입력 이중 구조는 직접 수강하지 않은 경우 통과 난이도가 높아지도록 설계했습니다. 수강 유도를 "유지"하는 것이 아니라 "강화"하는 방향으로 전환했습니다.</p>
+        </div>
+      </div>
+      <div class="impact-card positive">
+        <div class="impact-icon">✅</div>
+        <div class="impact-body">
+          <h4>우려 해소: '자료를 먼저 열람하면 공지사항 전달이 안 됨'</h4>
+          <p class="impact-verdict">→ 공지 확인 체크 후에만 퀴즈·다운로드 진행 가능</p>
+          <p>미션 허브 상단에 주차별 공지 배너를 배치하고, "공지사항을 확인했습니다" 체크박스를 통과해야 다음 단계로 진행 가능합니다. 현행 대비 공지 도달률이 구조적으로 향상됩니다.</p>
+        </div>
+      </div>
+      <div class="impact-card positive">
+        <div class="impact-icon">✅</div>
+        <div class="impact-body">
+          <h4>긍정: 기존 정책의 실현을 통한 수강 성과 기여</h4>
+          <p class="impact-verdict">→ 사문화된 정책이 실제 작동하여 추가 학습 동기 부여</p>
+          <p>업무일지 10개 제출 정책이 기술적으로 작동하게 되어, 밤샘챌린지에 실패한 수강생에게도 구체적인 학습 동기를 부여합니다. 제출 과정 간소화로 참여율 향상이 기대되며, 참여율은 수강 성과와 직결되는 지표입니다.</p>
+        </div>
+      </div>
+      <div class="impact-card positive">
+        <div class="impact-icon">✅</div>
+        <div class="impact-body">
+          <h4>긍정: 강의자료와 밤샘챌린지의 동일 페이지 배치로 챌린지 인지율 향상</h4>
+          <p class="impact-verdict">→ 별도 안내 없이도 챌린지 참여로 이어지는 구조</p>
+          <p>기존에는 밤샘챌린지 신청 경로가 PPT 내 구글 폼 링크에 한정되어, 챌린지 존재를 인지하지 못하거나 나중에 하려다 잊어버리는 케이스가 있었습니다. 미션 허브에서는 강의자료를 받으러 온 수강생이 바로 옆 탭에서 밤샘챌린지를 확인할 수 있어, 자연스러운 교차 노출이 발생합니다. 이는 챌린지 참여율 향상으로 이어질 수 있으며, 참여율은 수강 성과와 직결되는 지표입니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="kpi-box fade-up">
+      <h4>📊 27기 파일럿 모니터링 지표 (KPI)</h4>
+      <div class="kpi-grid">
+        <div class="kpi-item">
+          <div class="kpi-num">1</div>
+          <div class="kpi-text">
+            <strong>비밀번호/메일 관련 CS 주간 건수</strong>
+            <span>현행 대비 감소 여부</span>
+          </div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-num">2</div>
+          <div class="kpi-text">
+            <strong>밤샘챌린지 제출률</strong>
+            <span>현행 대비 참여율 변화</span>
+          </div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-num">3</div>
+          <div class="kpi-text">
+            <strong>업무일지 10개 경로 활용 건수</strong>
+            <span>기존 사문화 정책의 실제 활용 여부</span>
+          </div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-num">4</div>
+          <div class="kpi-text">
+            <strong>'수강 없이 자료만 열람' 이상 징후</strong>
+            <span>관련 문의 또는 패턴 발생 여부</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05. 기대효과 -->
+<section id="benefits">
+  <div class="container">
+    <div class="section-label">05 — 기대효과</div>
+    <div class="section-title">무엇이 달라지는가</div>
+    <div class="section-desc">수강생·운영팀·수강 성과 세 측면에서의 기대효과입니다.</div>
+
+    <div class="benefits-grid fade-up">
+      <div class="benefit-card">
+        <div class="benefit-icon">🎓</div>
+        <h4>수강생: 학습에 집중할 수 있는 환경</h4>
+        <p>비밀번호 2개→1개 축소, 메일 대기·스팸함 확인 과정이 사라져 수강생이 강의 내용에만 집중 가능. 챌린지 제출 허들이 낮아져 참여율 향상 기대. 강의자료와 밤샘챌린지가 동일 페이지에 위치하여, 별도 안내 없이도 챌린지 인지율이 구조적으로 향상. 실패 수강생에게 업무일지 10개 경로를 통한 추가 학습 동기 부여.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">⚙️</div>
+        <h4>운영팀: 반복 CS에서 성과 관리로 전환</h4>
+        <p>비밀번호·메일 관련 반복 CS 제거로 응대 에너지를 수강생 관리에 집중 가능. 수강생별 챌린지 참여 현황이 스프레드시트에 자동 기록되어 미참여 수강생 식별 및 선제적 케어 가능.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">📈</div>
+        <h4>수강률 및 만족도 향상</h4>
+        <p>불필요한 시스템 마찰이 사라지면 수강생은 '시스템이 복잡하다'가 아닌 '강의 내용이 좋다'에 집중. 참여 데이터 기반의 선제적 케어로 중도 이탈 감소. 수강 저해 요인 감소로 만족도 개선 가능성 확보.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06. 비교 -->
 <section id="compare">
   <div class="container">
-    <div class="section-label">04 — 비교</div>
+    <div class="section-label">06 — 비교</div>
     <div class="section-title">현재 vs 개선 후</div>
     <div class="section-desc">주요 항목별 변경 사항을 비교합니다.</div>
 
@@ -576,22 +719,23 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
       <table class="compare-table">
         <thead><tr><th></th><th>현재</th><th>개선 후</th></tr></thead>
         <tbody>
-          <tr><td>강의자료 접근</td><td>VOD 설명에서 링크 → 영상에서 비번 확인 → 압축 해제</td><td class="highlight">미션 허브에서 암호 입력 → 바로 다운로드</td></tr>
-          <tr><td>압축파일 비밀번호</td><td>압축파일에 비밀번호 설정</td><td class="highlight">압축파일 비밀번호 제거. 미션 허브 안내 게이트가 초기 파일 노출을 줄이는 최소 장벽 역할</td></tr>
-          <tr><td>수강 전 자료 차단</td><td>유지 (압축파일 비밀번호)</td><td>실질적 진입 장벽 유지 (미션 허브 안내 게이트)</td></tr>
+          <tr><td>강의자료 접근</td><td>VOD 설명에서 링크 → 영상에서 비번 확인 → 압축 해제</td><td class="highlight">공지 확인 → 수강 확인 퀴즈 → 암호 입력 → 바로 다운로드</td></tr>
+          <tr><td>압축파일 비밀번호</td><td>압축파일에 비밀번호 설정</td><td class="highlight">압축파일 비밀번호 제거. 퀴즈 + 암호 이중 게이트가 수강 전 자료 접근을 줄이는 장벽 역할</td></tr>
+          <tr><td>수강 유도 장치</td><td>암호 단일 게이트 (공유 용이)</td><td class="highlight">강화: 수강 확인 퀴즈 3문제 + 암호 입력 이중 구조 (직접 수강하지 않은 경우 통과 난이도가 높아짐)</td></tr>
           <tr><td>리워드 수령</td><td>구글 폼 → Zapier 메일 → 암호로 압축 해제</td><td class="highlight">미션 허브 자체 폼 → [제출] 완료 후 즉시 다운로드</td></tr>
-          <tr><td>밤샘챌린지 폼</td><td>구글 폼 (외부 페이지 이동)</td><td class="highlight">미션 허브 내 자체 폼 + GAS 연동 (페이지 이동 없음)</td></tr>
+          <tr><td>밤샘챌린지 폼</td><td>구글 폼 (외부 페이지 이동)</td><td class="highlight">미션 허브 내 자체 폼 (페이지 이동 없음)</td></tr>
           <tr><td>결과별 분기</td><td>불가 (구글 폼 최종 화면 분기 미지원)</td><td class="highlight">성공/실패별 서로 다른 결과 화면 제공</td></tr>
           <tr><td>비밀번호 개수</td><td>2개 (강의자료 + 리워드)</td><td class="highlight">1개 (강의자료만)</td></tr>
           <tr><td>메일 의존</td><td>Zapier 메일 발송 (스팸함 위험)</td><td class="highlight">없음</td></tr>
-          <tr><td>제출 데이터</td><td>구글 폼 응답 시트</td><td class="highlight">구글 스프레드시트 자동 기록 (GAS)</td></tr>
+          <tr><td>제출 데이터</td><td>구글 폼 응답 시트</td><td class="highlight">구글 스프레드시트 자동 기록</td></tr>
           <tr><td>운영 작업</td><td>기수별 ZIP 생성 · 비밀번호 설정 · 업로드 · 링크 첨부</td><td class="highlight">주차별 복제·링크 교체 중심으로 운영 가능. ZIP 생성·비밀번호 설정 단계 제거</td></tr>
+          <tr><td>업무일지 10개 정책</td><td>정책은 존재하나 구글 폼 구조상 검증 불가 (사문화)</td><td class="highlight">10개 개별 입력란으로 누락 없이 수집, 스프레드시트 자동 기록</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="limitation-note fade-up">
-      <strong>⚠️ 보안 수준에 대한 참고사항</strong> — 현재 미션 허브는 정적 HTML 기반의 최소 장벽이며, 기술적으로 완전한 접근 통제는 아닙니다. 다만 일반 사용자의 실제 이용 환경에서는 충분한 장벽으로 작동합니다. 추후 필요 시 Google Apps Script의 CORS 우회(JSONP 또는 프록시) 등 서버리스 검증으로 고도화하여 소스코드 노출 문제를 해소할 수 있습니다.
+      <strong>⚠️ 보안 수준에 대한 참고사항</strong> — 현재 미션 허브는 정적 페이지 기반의 최소 장벽이며, 기술적으로 완전한 접근 통제는 아닙니다. 다만 일반 수강생의 실제 이용 환경에서는 충분한 장벽으로 작동합니다. 파일럿 운영 후 필요 시 서버리스 검증 구조로 고도화하여 소스코드 노출 문제를 해소할 수 있습니다.
     </div>
   </div>
 </section>
@@ -599,7 +743,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
 <!-- 05. 실행 로드맵 -->
 <section id="roadmap">
   <div class="container">
-    <div class="section-label">05 — 실행 로드맵</div>
+    <div class="section-label">07 — 실행 로드맵</div>
     <div class="section-title">어떻게 진행할 것인가</div>
     <div class="section-desc"></div>
 
@@ -608,8 +752,8 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
         <div class="roadmap-dot now">1</div>
         <div class="roadmap-text">
           <div class="timeline">승인 후 즉시 실행</div>
-          <h4>미션 허브 구축 + GAS 연동 + 기존 PPT 정리</h4>
-          <p>미션 허브 페이지: 별도 개발 인력 없이 자체 구현 완료 (프로토타입 구축·테스트 완료). Google Apps Script 배포 및 스프레드시트 연동 완료. Zapier 메일 발송 비활성화. 강의자료 압축파일에서 비밀번호 제거 + 구글 드라이브에 주차별 개별 파일 업로드. 기존 강의자료 PPT 내의 '밤샘챌린지 리워드 신청서 작성' / '리워드 받기' 버튼을 제거하고, '미션 허브에서 신청하세요'라는 안내 문구로 대체 검토.</p>
+          <h4>미션 허브 구축 + 기존 PPT 정리</h4>
+          <p>미션 허브 페이지: 별도 개발 인력 없이 자체 구현 완료 (프로토타입 구축·테스트 완료). 스프레드시트 연동 완료. Zapier 메일 발송 비활성화. 강의자료 압축파일에서 비밀번호 제거 + 구글 드라이브에 주차별 개별 파일 업로드. 기존 강의자료 PPT 내의 '밤샘챌린지 리워드 신청서 작성' / '리워드 받기' 버튼을 제거하고, '미션 허브에서 신청하세요'라는 안내 문구로 대체 검토.</p>
         </div>
       </div>
       <div class="roadmap-item">
@@ -625,7 +769,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
         <div class="roadmap-text">
           <div class="timeline">장기 고도화</div>
           <h4>보안 검증 고도화 (필요 시)</h4>
-          <p>현재 정적 HTML 기반의 안내 게이트를 JSONP 또는 서버리스 프록시(Cloudflare Workers 등)로 고도화하여, GAS 응답에서 직접 리워드 URL을 전달받는 구조로 전환. 이를 통해 소스코드에서 리워드 URL이 완전히 제거되어 기술적 보안이 한층 강화됨. 파일럿 운영 결과에 따라 고도화 범위와 시기를 결정.</p>
+          <p>현재 정적 페이지 기반의 최소 장벽을 서버리스 검증 구조로 고도화하여, 소스코드에서 리워드 URL이 완전히 제거되는 구조로 전환. 별도 상시 서버 비용 없이 운영 가능. 파일럿 운영 결과에 따라 고도화 범위와 시기를 결정.</p>
         </div>
       </div>
     </div>
@@ -635,7 +779,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
 <!-- 06. 의사결정 -->
 <section class="decision-section" id="decision">
   <div class="decision-inner">
-    <div class="section-label" style="text-align:center">06 — Decision Point</div>
+    <div class="section-label" style="text-align:center">08 — Decision Point</div>
     <h2>의사결정 요청 사항</h2>
     <div class="decision-items">
       <div class="decision-item">
@@ -654,7 +798,7 @@ footer { padding: 32px 24px; text-align: center; font-size: 13px; color: var(--t
       </div>
     </div>
     <div class="decision-note">
-      설명을 더 쓰는 게 아니라 설명이 덜 필요한 구조를 만드는 것이 이 제안의 핵심입니다.
+      본 제안은 기존 수강 유도 장치를 보완·강화하면서, 불필요한 운영 마찰을 제거하여 수강생과 운영팀 모두가 강의 본연의 가치에 집중할 수 있는 환경을 만듭니다.
     </div>
   </div>
 </section>
